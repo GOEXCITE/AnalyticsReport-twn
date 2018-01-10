@@ -11,18 +11,20 @@ import Foundation
 enum CountType : Int {
     case NotAvaliable = -1
     case Zero = 0
-    case C1To100 = 1
-    case C100To200 = 2
-    case C200To300 = 3
-    case C300To400 = 4
-    case C400To500 = 5
-    case C500To1000 = 6
-    case C1000To5000 = 7
-    case c5000To10000 = 8
-    case c10000To20000 = 9
-    case c20000To30000 = 10
-    case c30000To40000 = 11
-    case c40000above = 12
+    case C1To10 = 1
+    case C10To50 = 2
+    case C50To100 = 3
+    case C100To200 = 4
+    case C200To300 = 5
+    case C300To400 = 6
+    case C400To500 = 7
+    case C500To1000 = 8
+    case C1000To5000 = 9
+    case C5000To10000 = 10
+    case C10000To20000 = 11
+    case C20000To30000 = 12
+    case c30000To40000 = 13
+    case c40000above = 14
     
     static func preferentialCountType(beforeType: CountType, afterType: CountType) -> CountType {
         if afterType == .NotAvaliable {
@@ -44,13 +46,13 @@ extension Util {
             return .c30000To40000
         }
         if count >= 20000 {
-            return .c20000To30000
+            return .C20000To30000
         }
         if count >= 10000 {
-            return .c10000To20000
+            return .C10000To20000
         }
         if count >= 5000 {
-            return .c5000To10000
+            return .C5000To10000
         }
         if count >= 1000 {
             return .C1000To5000
@@ -70,8 +72,14 @@ extension Util {
         if count >= 100 {
             return .C100To200
         }
+        if count >= 50 {
+            return .C50To100
+        }
+        if count >= 10 {
+            return .C10To50
+        }
         if count > 0 {
-            return .C1To100
+            return .C1To10
         }
         return .Zero
     }

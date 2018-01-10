@@ -20,7 +20,7 @@ extension Util {
         var report = [ReportUnit]()
         
         for i in 0...2 {
-            for j in -1...12 {
+            for j in 0...14 {
                 if let conditionType = AmbiguousConditionType(rawValue: i),
                     let countType = CountType(rawValue: j){
                     var addNewUnit = ReportUnit()
