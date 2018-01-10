@@ -11,7 +11,7 @@ import CSV
 class Report_general {
     
     static let shared = Report_general()
-    private var data = [DataUnit]()
+    private var data = [DataRecord]()
     var report = [ReportUnit]()
     
     init() {

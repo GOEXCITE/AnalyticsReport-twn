@@ -17,7 +17,7 @@ enum DetailConditionType: Int {
 }
 
 extension Util {    
-    static func dataUnitAmbiguousConditionType(_ unit: DataUnit) -> AmbiguousConditionType {
+    static func dataUnitAmbiguousConditionType(_ unit: DataRecord) -> AmbiguousConditionType {
         if unit.mArea!.isEmpty &&
             unit.sArea!.isEmpty &&
             unit.lJobTypeCd!.isEmpty &&
@@ -42,7 +42,7 @@ extension Util {
         return .NotFull
     }
     
-    static func dataUnitDetailConditionType(_ dataUnit: DataUnit) -> DetailConditionType {
+    static func dataUnitDetailConditionType(_ dataUnit: DataRecord) -> DetailConditionType {
         if dataUnitAmbiguousConditionType(dataUnit) == .Empty {
             return .Others
         }

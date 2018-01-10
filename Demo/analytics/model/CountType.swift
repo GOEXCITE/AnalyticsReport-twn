@@ -35,7 +35,7 @@ enum CountType : Int {
 }
 
 extension Util {
-    static func dataUnitCountType(unit: DataUnit) -> CountType {
+    static func dataUnitCountType(unit: DataRecord) -> CountType {
         guard let countSti = unit.searchResultCount, let count = Int(countSti) else {
             return .NotAvaliable
         }

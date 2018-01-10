@@ -11,7 +11,7 @@ import Foundation
 class Report_ObserveDetailResultCountAndAmbiguousConditionType {
 
     static let shared = Report_ObserveDetailResultCountAndAmbiguousConditionType()
-    private var data = [DataUnit]()
+    private var data = [DataRecord]()
     var report = [ReportUnit]()
     
     init() {

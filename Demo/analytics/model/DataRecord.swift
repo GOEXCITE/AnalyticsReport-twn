@@ -8,7 +8,11 @@
 
 import Foundation
 
-class DataUnit {
+enum ConditionType {
+    case Area, JobType, RailOrStation, Merit, HireType, Salary
+}
+
+class DataRecord {
     var version : String? // アプリ名&バージョン_e11 (evar11)
     var time : Date!
     var uuid : String?
@@ -53,13 +57,29 @@ class DataUnit {
         return salaryUnitCd!.isEmpty && salaryRangeCd!.isEmpty
     }
     
+    func hasCondition(_ conditionType: ConditionType) -> Bool {
+        switch conditionType {
+        case .Area:
+            return hasAreaCondition()
+        case .JobType:
+            return hasJobTypeCondition()
+        case .RailOrStation:
+            return hasRailOrStationCondition()
+        case .Merit:
+            return hasMeritCondition()
+        case .HireType:
+            return hasHireTypeCondition()
+        case .Salary:
+            return hasSalaryCondition()
+        }
+    }
     func hasAreaCondition() -> Bool {
         return !mArea!.isEmpty || !sArea!.isEmpty
     }
     func hasJobTypeCondition() -> Bool {
         return !lJobTypeCd!.isEmpty || !mJobTypeCd!.isEmpty
     }
-    func hasStationCondition() -> Bool {
+    func hasRailOrStationCondition() -> Bool {
         return !alongRailCd!.isEmpty || !stationUnitCd!.isEmpty
     }
     func hasMeritCondition() -> Bool {

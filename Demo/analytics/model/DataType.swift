@@ -14,7 +14,7 @@ struct DataType {
     
     init() { }
     
-    init(_ dataUnit: DataUnit) {
+    init(_ dataUnit: DataRecord) {
         conditionType = Util.dataUnitAmbiguousConditionType(dataUnit)
         countType = Util.dataUnitCountType(unit: dataUnit)
     }

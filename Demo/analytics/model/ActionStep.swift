@@ -13,14 +13,14 @@ enum ActionStep {
 }
 
 extension Util {
-    static func isAppliedAction(dataUnit: DataUnit) -> Bool {
+    static func isAppliedAction(dataUnit: DataRecord) -> Bool {
         if let eventName = dataUnit.eventPageName, eventName == "求人情報詳細画面起動" {
             return true
         }
         return false
     }
     
-    static func dataUnitActionStep(dataUnit: DataUnit) -> ActionStep {
+    static func dataUnitActionStep(dataUnit: DataRecord) -> ActionStep {
         if let kept = dataUnit.addKeepAction, let keptState = Int(kept), keptState > 0 {
             return .Kept
         }

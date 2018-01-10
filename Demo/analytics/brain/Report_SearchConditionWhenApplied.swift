@@ -10,7 +10,7 @@ import Foundation
 
 class Report_SearchConditionWhenApplied {
     static let shared = Report_SearchConditionWhenApplied()
-    private var data = [DataUnit]()
+    private var data = [DataRecord]()
     
     init() {
         data = Util.read()
@@ -48,7 +48,7 @@ class Report_SearchConditionWhenApplied {
             if item.hasJobTypeCondition() {
                 jobTypeConditionUsedNum = jobTypeConditionUsedNum + 1
             }
-            if item.hasStationCondition() {
+            if item.hasRailOrStationCondition() {
                 stationConditionUsedNum = stationConditionUsedNum + 1
             }
             if item.hasMeritCondition() {

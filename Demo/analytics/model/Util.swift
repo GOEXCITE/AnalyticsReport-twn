@@ -21,15 +21,15 @@ class Util {
         return dateFormatter
     }
     
-    static func read() -> [DataUnit] {
-        var allItems = [DataUnit]()
+    static func read() -> [DataRecord] {
+        var allItems = [DataRecord]()
         do {
             let url = URL(fileURLWithPath: FilePath)
             let csvStr = try String(contentsOf: url, encoding: String.Encoding.utf8)
             let csv = try! CSVReader(string: csvStr)
             
             while let row = csv.next() {
-                let item = DataUnit()
+                let item = DataRecord()
                 item.version = row[0]
                 item.time = row[1].adobeDate()
                 item.uuid = row[2]
@@ -62,7 +62,7 @@ class Util {
         return allItems
     }
     
-    static func write(data: [DataUnit], to fileName: String) {
+    static func write(data: [DataRecord], to fileName: String) {
         let stream = OutputStream(toFileAtPath: "\(pathProcessing)\(fileName)", append: true)!
         let csv = try! CSVWriter(stream: stream)
         
