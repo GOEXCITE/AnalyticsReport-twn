@@ -8,15 +8,15 @@
 
 import Foundation
 
-enum AmbiguousConditionType {
-    case Empty, NotFull, Full
+enum AmbiguousConditionType: Int {
+    case Empty = 0, NotFull = 1, Full = 2
 }
 
-enum DetailConditionType {
-    case OnlyArea, OnlyJobType, OnlyStation, OnlyMerit, OnlyHireType, OnlySalary, Others
+enum DetailConditionType: Int {
+    case OnlyArea = 0, OnlyJobType = 1, OnlyStation = 2, OnlyMerit = 3, OnlyHireType = 4, OnlySalary = 5, Others = 6
 }
 
-extension Util {
+extension Util {    
     static func dataUnitAmbiguousConditionType(_ unit: DataUnit) -> AmbiguousConditionType {
         if unit.mArea!.isEmpty &&
             unit.sArea!.isEmpty &&

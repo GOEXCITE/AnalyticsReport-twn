@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         print("Starting")
-        Report_SearchConditionWhenApplied.shared.observe()
+        Report_ObserveDetailResultCountAndAmbiguousConditionType.shared.observe()
         return true
     }
 }
