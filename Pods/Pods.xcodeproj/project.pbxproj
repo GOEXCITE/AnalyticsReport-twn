@@ -36,15 +36,15 @@
 		03EA1E60232BFA05817BC26ACB8E68BA /* Pods-Demo-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Demo-umbrella.h"; sourceTree = "<group>"; };
 		282DFB0DC0BBB426EE040EF4BBB2AFAB /* Endian.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Endian.swift; path = Sources/Endian.swift; sourceTree = "<group>"; };
 		29B6B1F6409B86E5E90508B021C5BD57 /* CSVReader.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CSVReader.swift; path = Sources/CSVReader.swift; sourceTree = "<group>"; };
-		322419E99883B306EE7EC77959FCC8DF /* Pods-Demo.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-Demo.modulemap"; sourceTree = "<group>"; };
+		322419E99883B306EE7EC77959FCC8DF /* Pods-Demo.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-Demo.modulemap"; sourceTree = "<group>"; };
 		3CD5A30239C90F1B549B4AB9299ECF16 /* Pods-Demo-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Demo-frameworks.sh"; sourceTree = "<group>"; };
 		3D653C9DA16200D75AD14323AA830C6B /* Pods-Demo-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Demo-resources.sh"; sourceTree = "<group>"; };
-		4D13D2C00BA275A439F5D85784F25CF9 /* CSV.swift.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = CSV.swift.modulemap; sourceTree = "<group>"; };
+		4D13D2C00BA275A439F5D85784F25CF9 /* CSV.swift.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = CSV.swift.modulemap; sourceTree = "<group>"; };
 		546FC45EE0C814FCB9A59298D43B8B03 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		71940C1CEB7995DC34CFE54CAF1AEF88 /* Pods-Demo-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Demo-acknowledgements.markdown"; sourceTree = "<group>"; };
 		8BFFCC678FE1998394BB3BF9E3D892F3 /* BinaryReader.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BinaryReader.swift; path = Sources/BinaryReader.swift; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		97430A4E65819A86E0A091EE267DD9ED /* CSV.swift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CSV.swift-prefix.pch"; sourceTree = "<group>"; };
 		AA56F1F71C5F9293A5CC9043DDAC3735 /* CSVError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CSVError.swift; path = Sources/CSVError.swift; sourceTree = "<group>"; };
 		B904EE6B0D1BD831B3177FD5A902E3B5 /* CSVWriter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CSVWriter.swift; path = Sources/CSVWriter.swift; sourceTree = "<group>"; };
@@ -54,8 +54,8 @@
 		C5BC86D40B890A7B0844F888209CA06F /* Pods-Demo-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Demo-dummy.m"; sourceTree = "<group>"; };
 		CA19694C0AC41D598DE4ABFEB300E619 /* Pods-Demo-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Demo-acknowledgements.plist"; sourceTree = "<group>"; };
 		CC6A59B0ADA6CB2F51DAE6508E437829 /* Pods-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Demo.debug.xcconfig"; sourceTree = "<group>"; };
-		CEE8FB8FFDD72AA5CB548742E14D0495 /* CSV.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = CSV.framework; path = CSV.swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CF47962F92DC79363888330F14609322 /* Pods_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Demo.framework; path = "Pods-Demo.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CEE8FB8FFDD72AA5CB548742E14D0495 /* CSV.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CSV.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CF47962F92DC79363888330F14609322 /* Pods_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAB0701F8F25395B1ED46510ED4B9797 /* Pods-Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Demo.release.xcconfig"; sourceTree = "<group>"; };
 		DD1E99006C97B381DD5C5628196B7544 /* CSV.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CSV.swift; path = Sources/CSV.swift; sourceTree = "<group>"; };
 		E68F8C86FB3267A3C87983DA9E269889 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -135,7 +135,6 @@
 				C343A40CC6594F75EC885436F73E427A /* UnicodeIterator.swift */,
 				75436E592E10023C712CFC2B161FC303 /* Support Files */,
 			);
-			name = CSV.swift;
 			path = CSV.swift;
 			sourceTree = "<group>";
 		};
@@ -247,6 +246,11 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 0700;
+				TargetAttributes = {
+					701D4F02FAA85F5DE4F688FC7C082624 = {
+						LastSwiftMigration = 0920;
+					};
+				};
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -475,7 +479,8 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -541,7 +546,8 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";

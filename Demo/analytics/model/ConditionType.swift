@@ -16,6 +16,10 @@ enum DetailConditionType: Int {
     case OnlyArea = 0, OnlyJobType = 1, OnlyStation = 2, OnlyMerit = 3, OnlyHireType = 4, OnlySalary = 5, Others = 6
 }
 
+enum ConditionNumber: Int {
+    case Zero = 0, One = 1, Two = 2, Three = 3, Four = 4, Five = 5, Six = 6
+}
+
 extension Util {    
     static func dataUnitAmbiguousConditionType(_ unit: DataRecord) -> AmbiguousConditionType {
         if unit.mArea!.isEmpty &&

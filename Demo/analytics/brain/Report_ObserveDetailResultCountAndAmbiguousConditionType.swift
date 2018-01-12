@@ -12,7 +12,8 @@ class Report_ObserveDetailResultCountAndAmbiguousConditionType {
 
     static let shared = Report_ObserveDetailResultCountAndAmbiguousConditionType()
     private var data = [DataRecord]()
-    var report = [ReportUnit]()
+    var report = [ReportSearchResultListActivity]()
+    var specificReports = [ReportConditionNumberAndConditionRankingOfSpecificType]()
     
     init() {
         data = Util.read()
@@ -22,6 +23,7 @@ class Report_ObserveDetailResultCountAndAmbiguousConditionType {
         }
         
         report = Util.generateReport_ObserveDetailResultCountAndAmbiguousConditionType()
+        specificReports = Util.generateReportConditionNumberAndConditionRankingOfSpecificType()
     }
     
     func observe() {
@@ -60,6 +62,7 @@ class Report_ObserveDetailResultCountAndAmbiguousConditionType {
                 } else{
                     observingUsers[item.uuid!] = (dataType, nowAction, item.time)
                     addNewTotal(datatype: dataType)
+                    addNewSpecificReportResult(datatype: dataType, dataRecord: item)
                 }
                 data.removeFirst()
             case .Kept:
@@ -87,6 +90,19 @@ class Report_ObserveDetailResultCountAndAmbiguousConditionType {
         for item in report {
             print(item)
         }
+        print("")
+        print("------------SpecificReports----------------")
+        for item in specificReports {
+            print(item.countType)
+            print(item.conditionNumberObserver)
+            print("Area: \(item.areaUsedNumber)")
+            print("JobType: \(item.jobTypeNumber)")
+            print("RailOrStation: \(item.railOrStationnumber)")
+            print("Merit: \(item.meritNumber)")
+            print("HireType: \(item.hireTypeNumber)")
+            print("Salary: \(item.salaryNumber)")
+            print("")
+        }
         
         print("observing finished!")
         //        Util.write(data: targetData, to: "twn_1204-1210_com.csv")
@@ -109,6 +125,69 @@ class Report_ObserveDetailResultCountAndAmbiguousConditionType {
             }
         }
     }
+    
+    private func addNewSpecificReportResult(datatype: DataType, dataRecord: DataRecord) {
+        guard let specificReport = getSpecificReportFromList(datatype) else {
+            return
+        }
+        
+        var conditionCount = 0
+        // Area
+        if dataRecord.hasAreaCondition() {
+            conditionCount = conditionCount + 1
+            specificReport.areaUsedNumber = specificReport.areaUsedNumber + 1
+        }
+        
+        // Jobtype
+        if dataRecord.hasJobTypeCondition() {
+            conditionCount = conditionCount + 1
+            specificReport.jobTypeNumber = specificReport.jobTypeNumber + 1
+        }
+        
+        // RailOrStation
+        if dataRecord.hasRailOrStationCondition() {
+            conditionCount = conditionCount + 1
+            specificReport.railOrStationnumber = specificReport.railOrStationnumber + 1
+        }
+        
+        // Merit
+        if dataRecord.hasMeritCondition() {
+            conditionCount = conditionCount + 1
+            specificReport.meritNumber = specificReport.meritNumber + 1
+        }
+        
+        // HireType
+        if dataRecord.hasHireTypeCondition() {
+            conditionCount = conditionCount + 1
+            specificReport.hireTypeNumber = specificReport.hireTypeNumber + 1
+        }
+        
+        // Salary
+        if dataRecord.hasSalaryCondition() {
+            conditionCount = conditionCount + 1
+            specificReport.salaryNumber = specificReport.salaryNumber + 1
+        }
+        
+        if let conditionCountType = ConditionNumber(rawValue: conditionCount) {
+            if let thisCount = specificReport.conditionNumberObserver[conditionCountType] {
+                specificReport.conditionNumberObserver[conditionCountType] = thisCount + 1
+            } else {
+                specificReport.conditionNumberObserver[conditionCountType] = 1
+            }
+        } else {
+            fatalError("Impossible!")
+        }
+    }
+    
+    private func getSpecificReportFromList(_ dataType: DataType) -> ReportConditionNumberAndConditionRankingOfSpecificType? {
+        for item in specificReports {
+            if item.countType == dataType.countType {
+                return item
+            }
+        }
+        return nil
+    }
+    
     private func addNewResult(item: (datatype: DataType, action:ActionStep)) {
         for i in 0...report.count-1 {
             if report[i].dataType.isEqual(targetType: item.datatype) {

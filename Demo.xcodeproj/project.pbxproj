@@ -13,13 +13,12 @@
 		CA1523DF1FDA954300748E28 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA1523DD1FDA954300748E28 /* Main.storyboard */; };
 		CA1523E11FDA954300748E28 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA1523E01FDA954300748E28 /* Assets.xcassets */; };
 		CA1523E41FDA954300748E28 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA1523E21FDA954300748E28 /* LaunchScreen.storyboard */; };
-		CAB2FEE620063106004D415B /* Report_CheckConditionNumberAndRankConditionUsedFrequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB2FEE520063106004D415B /* Report_CheckConditionNumberAndRankConditionUsedFrequence.swift */; };
 		CABB48131FE91DB000433F0D /* Report_SearchConditionWhenApplied.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABB48121FE91DB000433F0D /* Report_SearchConditionWhenApplied.swift */; };
 		CAD93B6F1FE8D52200714DEE /* Report_ObserveDetailResultCountAndAmbiguousConditionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD93B6E1FE8D52200714DEE /* Report_ObserveDetailResultCountAndAmbiguousConditionType.swift */; };
 		CAD93B711FE8D57200714DEE /* ConditionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD93B701FE8D57200714DEE /* ConditionType.swift */; };
 		CAD93B731FE8D5E000714DEE /* CountType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD93B721FE8D5E000714DEE /* CountType.swift */; };
 		CAD93B751FE8D61A00714DEE /* DataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD93B741FE8D61A00714DEE /* DataType.swift */; };
-		CAD93B771FE8D72F00714DEE /* ReportUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD93B761FE8D72F00714DEE /* ReportUnit.swift */; };
+		CAD93B771FE8D72F00714DEE /* ReportSearchResultListActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD93B761FE8D72F00714DEE /* ReportSearchResultListActivity.swift */; };
 		CAD93B791FE8D85100714DEE /* ActionStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD93B781FE8D85100714DEE /* ActionStep.swift */; };
 		CAD93B7B1FE8DD4800714DEE /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD93B7A1FE8DD4800714DEE /* Constant.swift */; };
 		CADC6A6D1FE39087006649C5 /* DataRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC6A6C1FE39087006649C5 /* DataRecord.swift */; };
@@ -37,13 +36,12 @@
 		CA1523E01FDA954300748E28 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CA1523E31FDA954300748E28 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CA1523E51FDA954300748E28 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CAB2FEE520063106004D415B /* Report_CheckConditionNumberAndRankConditionUsedFrequence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report_CheckConditionNumberAndRankConditionUsedFrequence.swift; sourceTree = "<group>"; };
 		CABB48121FE91DB000433F0D /* Report_SearchConditionWhenApplied.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report_SearchConditionWhenApplied.swift; sourceTree = "<group>"; };
 		CAD93B6E1FE8D52200714DEE /* Report_ObserveDetailResultCountAndAmbiguousConditionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report_ObserveDetailResultCountAndAmbiguousConditionType.swift; sourceTree = "<group>"; };
 		CAD93B701FE8D57200714DEE /* ConditionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionType.swift; sourceTree = "<group>"; };
 		CAD93B721FE8D5E000714DEE /* CountType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountType.swift; sourceTree = "<group>"; };
 		CAD93B741FE8D61A00714DEE /* DataType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataType.swift; sourceTree = "<group>"; };
-		CAD93B761FE8D72F00714DEE /* ReportUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportUnit.swift; sourceTree = "<group>"; };
+		CAD93B761FE8D72F00714DEE /* ReportSearchResultListActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportSearchResultListActivity.swift; sourceTree = "<group>"; };
 		CAD93B781FE8D85100714DEE /* ActionStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionStep.swift; sourceTree = "<group>"; };
 		CAD93B7A1FE8DD4800714DEE /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		CADC6A6C1FE39087006649C5 /* DataRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataRecord.swift; sourceTree = "<group>"; };
@@ -146,7 +144,7 @@
 				CAD93B701FE8D57200714DEE /* ConditionType.swift */,
 				CAD93B721FE8D5E000714DEE /* CountType.swift */,
 				CAD93B741FE8D61A00714DEE /* DataType.swift */,
-				CAD93B761FE8D72F00714DEE /* ReportUnit.swift */,
+				CAD93B761FE8D72F00714DEE /* ReportSearchResultListActivity.swift */,
 				CAD93B781FE8D85100714DEE /* ActionStep.swift */,
 			);
 			path = model;
@@ -158,7 +156,6 @@
 				CADC6A701FE39C18006649C5 /* Report_general.swift */,
 				CAD93B6E1FE8D52200714DEE /* Report_ObserveDetailResultCountAndAmbiguousConditionType.swift */,
 				CABB48121FE91DB000433F0D /* Report_SearchConditionWhenApplied.swift */,
-				CAB2FEE520063106004D415B /* Report_CheckConditionNumberAndRankConditionUsedFrequence.swift */,
 				CAD93B7A1FE8DD4800714DEE /* Constant.swift */,
 			);
 			path = brain;
@@ -200,6 +197,7 @@
 					CA1523D51FDA954300748E28 = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = BA98ZGA9S6;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -295,7 +293,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CA1523DC1FDA954300748E28 /* ViewController.swift in Sources */,
-				CAD93B771FE8D72F00714DEE /* ReportUnit.swift in Sources */,
+				CAD93B771FE8D72F00714DEE /* ReportSearchResultListActivity.swift in Sources */,
 				CADC6A6D1FE39087006649C5 /* DataRecord.swift in Sources */,
 				CAD93B711FE8D57200714DEE /* ConditionType.swift in Sources */,
 				CAD93B6F1FE8D52200714DEE /* Report_ObserveDetailResultCountAndAmbiguousConditionType.swift in Sources */,
@@ -305,7 +303,6 @@
 				CADC6A711FE39C18006649C5 /* Report_general.swift in Sources */,
 				CAD93B751FE8D61A00714DEE /* DataType.swift in Sources */,
 				CA1523DA1FDA954300748E28 /* AppDelegate.swift in Sources */,
-				CAB2FEE620063106004D415B /* Report_CheckConditionNumberAndRankConditionUsedFrequence.swift in Sources */,
 				CABB48131FE91DB000433F0D /* Report_SearchConditionWhenApplied.swift in Sources */,
 				CAD93B7B1FE8DD4800714DEE /* Constant.swift in Sources */,
 			);
@@ -448,7 +445,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.co.recruit.Demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -462,7 +460,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.co.recruit.Demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

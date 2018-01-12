@@ -13,9 +13,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var resultLabel: UILabel!
     
     @IBAction func startAnimation(_ sender: Any) {
-        let width = resultLabel.frame.width
-        let height = resultLabel.frame.height
-        let center = resultLabel.center
+//        let width = resultLabel.frame.width
+//        let height = resultLabel.frame.height
+//        let center = resultLabel.center
         
 //        resultLabel.font = UIFont.boldSystemFont(ofSize: 15)
         resultLabel.transform = resultLabel.transform.scaledBy(x: 1.0, y: 1.0)
