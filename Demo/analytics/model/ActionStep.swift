@@ -9,7 +9,7 @@
 import Foundation
 
 enum ActionStep {
-    case CheckedSearchList, Kept, CheckedDetail, Applying, Applied, Others
+    case OpenSearchListView, Kept, OpenDetailView, Applying, OpenAppliedView, Others, NotChanged
 }
 
 extension Util {
@@ -24,35 +24,32 @@ extension Util {
         if let kept = dataUnit.addKeepAction, let keptState = Int(kept), keptState > 0 {
             return .Kept
         }
-        if let eventName = dataUnit.eventPageName {
-            if eventName == "求人情報一覧画面起動" {
-                return .CheckedSearchList
+        if let pageView = dataUnit.page, !pageView.isEmpty {
+            if pageView == "求人情報一覧画面起動" {
+                return .OpenSearchListView
             }
-            if eventName == "求人情報詳細画面起動" {
-                return .CheckedDetail
+            if pageView == "求人情報詳細画面起動" {
+                return .OpenDetailView
             }
-            if eventName == "WEB応募完了ページ表示" {
-                return .Applied
+            if pageView == "WEB応募完了ページ表示" {
+                return .OpenAppliedView
             }
-            if eventName.contains("WEB応募") {
+            if pageView.contains("WEB応募") {
                 return .Applying
             }
+            return .Others
         }
-        return .Others
+        return .NotChanged
     }
-    
+
     static func isForwardAction(beforeAction: ActionStep, afterAction: ActionStep) -> Bool {
         switch beforeAction {
-        case .Applied, .Others:
-            return false
-        case .Kept:
-            return afterAction == .Applying || afterAction == .Applied || afterAction == .Kept
-        case .CheckedSearchList:
-            return true
-        case .CheckedDetail:
+        case .NotChanged:
             return afterAction != .Others
-        case .Applying:
-            return afterAction == .Applied || afterAction == .CheckedDetail
+        case .OpenAppliedView, .Others:
+            return false
+        case .OpenSearchListView, .Kept, .OpenDetailView, .Applying:
+            return afterAction != .Others
         }
     }
 }

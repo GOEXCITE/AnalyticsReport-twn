@@ -37,7 +37,6 @@ class Util {
                 item.sArea = row[4]
                 item.lJobTypeCd = row[5]
                 item.mJobTypeCd = row[6]
-//                item.showDetailImage = row[7]
                 item.alongRailCd = row[7]
                 item.stationUnitCd = row[8]
                 item.meritCd = row[9]
@@ -46,14 +45,9 @@ class Util {
                 item.salaryRangeCd = row[12]
                 item.searchResultCount = row[13]
                 item.eventPageName = row[14]
-                item.pageViews = row[15]
-                item.addKeepAction = row[16]
-//                item.telApplyButtonTappedEvent = row[16]
-//                item.webApplyStartEvent = row[17]
-//                item.webApplyComfirmEvent = row[18]
-//                item.webApplyFinishedEvent = row[19]
-//                item.webApplyButtonTappedEvent = row[20]
-//                item.webApplyTotalCountEvent = row[21]
+                item.bannerId = row[15]
+                item.page = row[16]
+                item.addKeepAction = row[17]
                 allItems.append(item)
             }
         } catch let err as NSError {
@@ -81,7 +75,8 @@ class Util {
                              "給与範囲cd_e65",
                              "searchResultCount_p48",
                              "イベントページ名_e29",
-                             "PageViews",
+                             "バナーID_p49",
+                             "Pages",
                              "キープリストに追加_8"])
         
         for item in data {
@@ -93,7 +88,6 @@ class Util {
             try! csv.write(field: item.sArea!)
             try! csv.write(field: item.lJobTypeCd!)
             try! csv.write(field: item.mJobTypeCd!)
-//            try! csv.write(field: item.showDetailImage!)
             try! csv.write(field: item.alongRailCd!)
             try! csv.write(field: item.stationUnitCd!)
             try! csv.write(field: item.meritCd!)
@@ -102,14 +96,10 @@ class Util {
             try! csv.write(field: item.salaryRangeCd!)
             try! csv.write(field: item.searchResultCount!)
             try! csv.write(field: item.eventPageName!)
-            try! csv.write(field: item.pageViews!)
+            try! csv.write(field: item.bannerId!)
+            try! csv.write(field: item.page!)
             try! csv.write(field: item.addKeepAction!)
-//            try! csv.write(field: item.telApplyButtonTappedEvent!)
-//            try! csv.write(field: item.webApplyStartEvent!)
-//            try! csv.write(field: item.webApplyComfirmEvent!)
-//            try! csv.write(field: item.webApplyFinishedEvent!)
-//            try! csv.write(field: item.webApplyButtonTappedEvent!)
-//            try! csv.write(field: item.webApplyTotalCountEvent!)
+
         }
         csv.stream.close()
     }

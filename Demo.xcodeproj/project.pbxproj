@@ -13,6 +13,7 @@
 		CA1523DF1FDA954300748E28 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA1523DD1FDA954300748E28 /* Main.storyboard */; };
 		CA1523E11FDA954300748E28 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA1523E01FDA954300748E28 /* Assets.xcassets */; };
 		CA1523E41FDA954300748E28 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA1523E21FDA954300748E28 /* LaunchScreen.storyboard */; };
+		CA642B6E200DE306002C3EDA /* ConditionInflow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA642B6D200DE306002C3EDA /* ConditionInflow.swift */; };
 		CABB48131FE91DB000433F0D /* Report_SearchConditionWhenApplied.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABB48121FE91DB000433F0D /* Report_SearchConditionWhenApplied.swift */; };
 		CAD93B6F1FE8D52200714DEE /* Report_ObserveDetailResultCountAndAmbiguousConditionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD93B6E1FE8D52200714DEE /* Report_ObserveDetailResultCountAndAmbiguousConditionType.swift */; };
 		CAD93B711FE8D57200714DEE /* ConditionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD93B701FE8D57200714DEE /* ConditionType.swift */; };
@@ -22,7 +23,6 @@
 		CAD93B791FE8D85100714DEE /* ActionStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD93B781FE8D85100714DEE /* ActionStep.swift */; };
 		CAD93B7B1FE8DD4800714DEE /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD93B7A1FE8DD4800714DEE /* Constant.swift */; };
 		CADC6A6D1FE39087006649C5 /* DataRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC6A6C1FE39087006649C5 /* DataRecord.swift */; };
-		CADC6A711FE39C18006649C5 /* Report_general.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC6A701FE39C18006649C5 /* Report_general.swift */; };
 		CADC6A731FE3A065006649C5 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC6A721FE3A065006649C5 /* Util.swift */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +36,7 @@
 		CA1523E01FDA954300748E28 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CA1523E31FDA954300748E28 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CA1523E51FDA954300748E28 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CA642B6D200DE306002C3EDA /* ConditionInflow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionInflow.swift; sourceTree = "<group>"; };
 		CABB48121FE91DB000433F0D /* Report_SearchConditionWhenApplied.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report_SearchConditionWhenApplied.swift; sourceTree = "<group>"; };
 		CAD93B6E1FE8D52200714DEE /* Report_ObserveDetailResultCountAndAmbiguousConditionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report_ObserveDetailResultCountAndAmbiguousConditionType.swift; sourceTree = "<group>"; };
 		CAD93B701FE8D57200714DEE /* ConditionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionType.swift; sourceTree = "<group>"; };
@@ -45,7 +46,6 @@
 		CAD93B781FE8D85100714DEE /* ActionStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionStep.swift; sourceTree = "<group>"; };
 		CAD93B7A1FE8DD4800714DEE /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		CADC6A6C1FE39087006649C5 /* DataRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataRecord.swift; sourceTree = "<group>"; };
-		CADC6A701FE39C18006649C5 /* Report_general.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Report_general.swift; sourceTree = "<group>"; };
 		CADC6A721FE3A065006649C5 /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		E828ECD481B7ACFB44F59070 /* Pods_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -142,6 +142,7 @@
 				CADC6A721FE3A065006649C5 /* Util.swift */,
 				CADC6A6C1FE39087006649C5 /* DataRecord.swift */,
 				CAD93B701FE8D57200714DEE /* ConditionType.swift */,
+				CA642B6D200DE306002C3EDA /* ConditionInflow.swift */,
 				CAD93B721FE8D5E000714DEE /* CountType.swift */,
 				CAD93B741FE8D61A00714DEE /* DataType.swift */,
 				CAD93B761FE8D72F00714DEE /* ReportSearchResultListActivity.swift */,
@@ -153,7 +154,6 @@
 		CADC6A6B1FE39050006649C5 /* brain */ = {
 			isa = PBXGroup;
 			children = (
-				CADC6A701FE39C18006649C5 /* Report_general.swift */,
 				CAD93B6E1FE8D52200714DEE /* Report_ObserveDetailResultCountAndAmbiguousConditionType.swift */,
 				CABB48121FE91DB000433F0D /* Report_SearchConditionWhenApplied.swift */,
 				CAD93B7A1FE8DD4800714DEE /* Constant.swift */,
@@ -299,8 +299,8 @@
 				CAD93B6F1FE8D52200714DEE /* Report_ObserveDetailResultCountAndAmbiguousConditionType.swift in Sources */,
 				CAD93B791FE8D85100714DEE /* ActionStep.swift in Sources */,
 				CADC6A731FE3A065006649C5 /* Util.swift in Sources */,
+				CA642B6E200DE306002C3EDA /* ConditionInflow.swift in Sources */,
 				CAD93B731FE8D5E000714DEE /* CountType.swift in Sources */,
-				CADC6A711FE39C18006649C5 /* Report_general.swift in Sources */,
 				CAD93B751FE8D61A00714DEE /* DataType.swift in Sources */,
 				CA1523DA1FDA954300748E28 /* AppDelegate.swift in Sources */,
 				CABB48131FE91DB000433F0D /* Report_SearchConditionWhenApplied.swift in Sources */,

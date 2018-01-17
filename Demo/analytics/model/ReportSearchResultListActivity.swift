@@ -26,35 +26,37 @@ class ReportConditionNumberAndConditionRankingOfSpecificType {
     var salaryNumber = 0
 }
 
+class ReportCountTypeConditionFlowstatistics {
+    var countType = CountType.NotAvaliable
+    var conditionFlow = ConditionInflow.Case.DaigakuseiKangei
+    var count = 0
+}
+
 extension Util {
     static func generateReport_ObserveDetailResultCountAndAmbiguousConditionType() -> [ReportSearchResultListActivity] {
         var report = [ReportSearchResultListActivity]()
-        
-        for i in 0...2 {
-            for j in CountType.startIndex()...CountType.endIndex() {
-                if let conditionType = AmbiguousConditionType(rawValue: i),
-                    let countType = CountType(rawValue: j){
-                    var addNewUnit = ReportSearchResultListActivity()
-                    addNewUnit.dataType.conditionType = conditionType
-                    addNewUnit.dataType.countType = countType
-                    report.append(addNewUnit)
-                }
+        for i in CountType.startIndex()...CountType.endIndex() {
+            if let countType = CountType(rawValue: i){
+                var addNewUnit = ReportSearchResultListActivity()
+                addNewUnit.dataType.conditionType = AmbiguousConditionType.NotFull
+                addNewUnit.dataType.countType = countType
+                report.append(addNewUnit)
             }
-        }        
+        }
         return report
     }
     
-    static func generateReportConditionNumberAndConditionRankingOfSpecificType() -> [ReportConditionNumberAndConditionRankingOfSpecificType] {
-        var report = [ReportConditionNumberAndConditionRankingOfSpecificType]()
-        
-        for i in 1...CountType.endIndex() {
-            if let type = CountType(rawValue: i) {
-                let newReport = ReportConditionNumberAndConditionRankingOfSpecificType()
-                newReport.countType = type
-                report.append(newReport)
-            }
-        }
-        
-        return report
-    }
+//    static func generateReportConditionNumberAndConditionRankingOfSpecificType() -> [ReportConditionNumberAndConditionRankingOfSpecificType] {
+//        var report = [ReportConditionNumberAndConditionRankingOfSpecificType]()
+//        
+//        for i in 1...CountType.endIndex() {
+//            if let type = CountType(rawValue: i) {
+//                let newReport = ReportConditionNumberAndConditionRankingOfSpecificType()
+//                newReport.countType = type
+//                report.append(newReport)
+//            }
+//        }
+//        
+//        return report
+//    }
 }

@@ -20,7 +20,6 @@ class DataRecord {
     var sArea : String?
     var lJobTypeCd : String?
     var mJobTypeCd : String?
-//    var showDetailImage : String?
     var alongRailCd : String?
     var stationUnitCd : String?
     var meritCd : String?
@@ -29,14 +28,9 @@ class DataRecord {
     var salaryRangeCd : String?
     var searchResultCount : String? //evar48
     var eventPageName : String?
-    var pageViews : String?
+    var bannerId : String?
+    var page: String?
     var addKeepAction : String?
-//    var telApplyButtonTappedEvent : String?
-//    var webApplyStartEvent : String?
-//    var webApplyComfirmEvent : String?
-//    var webApplyFinishedEvent : String?
-//    var webApplyButtonTappedEvent : String?
-//    var webApplyTotalCountEvent : String?
     
     func noAreaCondition() -> Bool {
         return mArea!.isEmpty && sArea!.isEmpty
