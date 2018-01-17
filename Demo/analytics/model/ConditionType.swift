@@ -12,9 +12,9 @@ enum AmbiguousConditionType: Int {
     case Empty = 0, NotFull = 1, Full = 2
 }
 
-enum DetailConditionType: Int {
-    case OnlyArea = 0, OnlyJobType = 1, OnlyStation = 2, OnlyMerit = 3, OnlyHireType = 4, OnlySalary = 5, Others = 6
-}
+//enum DetailConditionType: Int {
+//    case OnlyArea = 0, OnlyJobType = 1, OnlyStation = 2, OnlyMerit = 3, OnlyHireType = 4, OnlySalary = 5, Others = 6
+//}
 
 enum ConditionNumber: Int {
     case Zero = 0, One = 1, Two = 2, Three = 3, Four = 4, Five = 5, Six = 6
@@ -47,54 +47,54 @@ extension Util {
         return .NotFull
     }
     
-    static func dataUnitDetailConditionType(_ dataUnit: DataRecord) -> DetailConditionType {
-        if dataUnitAmbiguousConditionType(dataUnit) == .Empty {
-            return .Others
-        }
-        if dataUnit.noAreaCondition() &&
-            dataUnit.noJobTypeCondition() &&
-            dataUnit.noStationCondition() &&
-            dataUnit.noMeritCondition() &&
-            dataUnit.noHireTypeCondition() {
-            return .OnlySalary
-        }
-        if dataUnit.noAreaCondition() &&
-            dataUnit.noJobTypeCondition() &&
-            dataUnit.noStationCondition() &&
-            dataUnit.noMeritCondition() &&
-            dataUnit.noSalaryCondition() {
-            return .OnlyHireType
-        }
-        if dataUnit.noAreaCondition() &&
-            dataUnit.noJobTypeCondition() &&
-            dataUnit.noStationCondition() &&
-            dataUnit.noSalaryCondition() &&
-            dataUnit.noHireTypeCondition() {
-            return .OnlyMerit
-        }
-        if dataUnit.noAreaCondition() &&
-            dataUnit.noJobTypeCondition() &&
-            dataUnit.noMeritCondition() &&
-            dataUnit.noHireTypeCondition() &&
-            dataUnit.noSalaryCondition() {
-            return .OnlyStation
-        }
-        if dataUnit.noAreaCondition() &&
-            dataUnit.noStationCondition() &&
-            dataUnit.noMeritCondition() &&
-            dataUnit.noHireTypeCondition() &&
-            dataUnit.noSalaryCondition() {
-            return .OnlyJobType
-        }
-        if dataUnit.noJobTypeCondition() &&
-            dataUnit.noStationCondition() &&
-            dataUnit.noMeritCondition() &&
-            dataUnit.noHireTypeCondition() &&
-            dataUnit.noSalaryCondition() {
-            return .OnlyArea
-        }
-        print("ERROR: Should never be here!")
-        return .Others
-    }
+//    static func dataUnitDetailConditionType(_ dataUnit: DataRecord) -> DetailConditionType {
+//        if dataUnitAmbiguousConditionType(dataUnit) == .Empty {
+//            return .Others
+//        }
+//        if dataUnit.noAreaCondition() &&
+//            dataUnit.noJobTypeCondition() &&
+//            dataUnit.noStationCondition() &&
+//            dataUnit.noMeritCondition() &&
+//            dataUnit.noHireTypeCondition() {
+//            return .OnlySalary
+//        }
+//        if dataUnit.noAreaCondition() &&
+//            dataUnit.noJobTypeCondition() &&
+//            dataUnit.noStationCondition() &&
+//            dataUnit.noMeritCondition() &&
+//            dataUnit.noSalaryCondition() {
+//            return .OnlyHireType
+//        }
+//        if dataUnit.noAreaCondition() &&
+//            dataUnit.noJobTypeCondition() &&
+//            dataUnit.noStationCondition() &&
+//            dataUnit.noSalaryCondition() &&
+//            dataUnit.noHireTypeCondition() {
+//            return .OnlyMerit
+//        }
+//        if dataUnit.noAreaCondition() &&
+//            dataUnit.noJobTypeCondition() &&
+//            dataUnit.noMeritCondition() &&
+//            dataUnit.noHireTypeCondition() &&
+//            dataUnit.noSalaryCondition() {
+//            return .OnlyStation
+//        }
+//        if dataUnit.noAreaCondition() &&
+//            dataUnit.noStationCondition() &&
+//            dataUnit.noMeritCondition() &&
+//            dataUnit.noHireTypeCondition() &&
+//            dataUnit.noSalaryCondition() {
+//            return .OnlyJobType
+//        }
+//        if dataUnit.noJobTypeCondition() &&
+//            dataUnit.noStationCondition() &&
+//            dataUnit.noMeritCondition() &&
+//            dataUnit.noHireTypeCondition() &&
+//            dataUnit.noSalaryCondition() {
+//            return .OnlyArea
+//        }
+//        print("ERROR: Should never be here!")
+//        return .Others
+//    }
     
 }

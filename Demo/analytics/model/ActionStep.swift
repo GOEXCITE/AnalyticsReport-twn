@@ -14,7 +14,7 @@ enum ActionStep {
 
 extension Util {
     static func isAppliedAction(dataUnit: DataRecord) -> Bool {
-        if let eventName = dataUnit.eventPageName, eventName == "求人情報詳細画面起動" {
+        if dataUnit.page! == "WEB応募完了ページ表示" {
             return true
         }
         return false
