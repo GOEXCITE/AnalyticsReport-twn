@@ -8,6 +8,12 @@
 
 import Foundation
 
+class ObservingData {
+    var beforeSearchListDataRecord = DataRecord()
+    var countType = CountType.NotAvaliable
+    var isFromSearchList = false
+}
+
 class Report_ObserveDetailResultCountAndAmbiguousConditionType {
 
     static let shared = Report_ObserveDetailResultCountAndAmbiguousConditionType()
@@ -30,7 +36,7 @@ class Report_ObserveDetailResultCountAndAmbiguousConditionType {
     func observe() {
         print("start observing!")
         
-        var observingUsers = [String: (DataType, ActionStep, Date)]()
+        var observingUsers = [String: ObservingData]()
         
         while !data.isEmpty {
             let item = data.first!
@@ -40,55 +46,59 @@ class Report_ObserveDetailResultCountAndAmbiguousConditionType {
                 continue
             }
             
-            let nowAction = Util.dataUnitActionStep(dataUnit: item)
-            if nowAction == .Others {
-                observingUsers.removeValue(forKey: uuid)
-                data.removeFirst()
-                continue
-            }
-            
             observingUsers = removeExpiredObservingUser(observingUser: observingUsers, time: item.time)
             
-            switch nowAction {
-            case .OpenSearchListView:
-                let dataType = DataType(item)
-                if dataType.countType == .NotAvaliable || dataType.conditionType != AmbiguousConditionType.NotFull {
+            let nowPage = Util.dataRecordWatchingPage(item)
+
+            switch nowPage {
+            case .SearchList:
+                let countType = Util.dataUnitCountType(unit: item)
+                if countType == .NotAvaliable {
                     data.removeFirst()
                     continue
                 }
                 if let existingUser = observingUsers[uuid] {
-                    var type = existingUser.0
-                    type.countType = CountType.preferentialCountType(beforeType: existingUser.0.countType, afterType: dataType.countType)
-                    observingUsers[item.uuid!] = (type, nowAction, item.time)
+                    if existingUser.beforeSearchListDataRecord.searchConditionChanged(item) {
+                        observingUsers[uuid]!.beforeSearchListDataRecord = item
+                        observingUsers[uuid]!.countType = countType
+                        observingUsers[uuid]!.isFromSearchList = true
+                        addOneToTotalNumber(for: countType)
+                        addCountTypeAndConditionFlow(countType: countType, dataRecord: item)
+                    } else {
+                        observingUsers[uuid]!.beforeSearchListDataRecord = item
+                        observingUsers[uuid]!.countType = CountType.preferentialCountType(beforeType: existingUser.countType, afterType: countType)
+                        observingUsers[uuid]!.isFromSearchList = true
+                    }
                 } else{
-                    observingUsers[item.uuid!] = (dataType, nowAction, item.time)
-                    addNewTotal(datatype: dataType)
-//                    addNewSpecificReportResult(datatype: dataType, dataRecord: item)
-                    addCountTypeAndConditionFlow(countType: dataType.countType, dataRecord: item)
+                    let addData = ObservingData()
+                    addData.beforeSearchListDataRecord = item
+                    addData.countType = countType
+                    addData.isFromSearchList = true
+                    observingUsers[item.uuid!] = addData
+                    addOneToTotalNumber(for: countType)
+                    addCountTypeAndConditionFlow(countType: countType, dataRecord: item)
                 }
                 data.removeFirst()
-            case .Kept:
-                if let existingUser = observingUsers[uuid], Util.isForwardAction(beforeAction: existingUser.1, afterAction: nowAction) {
-                    addNewResult(item: (existingUser.0, nowAction))
-                    observingUsers[item.uuid!] = (existingUser.0, nowAction, item.time)
+            case .Applied:
+                if let existingUser = observingUsers[uuid], existingUser.isFromSearchList {
+                    addNewResult((existingUser.countType, .Applied))
                 }
                 data.removeFirst()
-            case .OpenDetailView, .Applying:
-                if let existingUser = observingUsers[uuid], Util.isForwardAction(beforeAction: existingUser.1, afterAction: nowAction) {
-                    observingUsers[item.uuid!] = (existingUser.0, nowAction, item.time)
+            case .SameDirectionWithPreviousDirection:
+                if Util.dataRecordAction(item) == .Kept {
+                    if let existingUser = observingUsers[uuid], existingUser.isFromSearchList{
+                        addNewResult((existingUser.countType, .Kept))
+                    }
                 }
                 data.removeFirst()
-            case .OpenAppliedView:
-                if let existingUser = observingUsers[uuid], Util.isForwardAction(beforeAction: existingUser.1, afterAction: nowAction) {
-                    addNewResult(item: (existingUser.0, nowAction))
-                    observingUsers.removeValue(forKey: uuid)
+            case .MakeDifferentDirectionFromSearchList:
+                if observingUsers[uuid] != nil {
+                    observingUsers[uuid]!.isFromSearchList = false
                 }
                 data.removeFirst()
-            default:
-                data.removeFirst()
-                continue
             }
         }
+        
         for item in report {
             print(item)
         }
@@ -106,13 +116,13 @@ class Report_ObserveDetailResultCountAndAmbiguousConditionType {
             print("")
         }
         
-        print("")
-        print("------------ReportCountTypeConditionFlowstatistics----------------")
-        for item in countTypeAndConditionFlow {
-            print(item.countType)
-            print(item.conditionFlow)
-            print("count: \(item.count)")
-        }
+//        print("")
+//        print("------------ReportCountTypeConditionFlowstatistics----------------")
+//        for item in countTypeAndConditionFlow {
+//            print(item.countType)
+//            print(item.conditionFlow)
+//            print("count: \(item.count)")
+//        }
         
         print("")
         print("------------Refine ReportCountTypeConditionFlowstatistics : get条件あり＆＆検索結果数が500~の場合のcount----------------")
@@ -135,19 +145,19 @@ class Report_ObserveDetailResultCountAndAmbiguousConditionType {
         //        Util.write(data: targetData, to: "twn_1204-1210_com.csv")
     }
     
-    private func removeExpiredObservingUser(observingUser: [String: (DataType, ActionStep, Date)], time: Date) -> [String: (DataType, ActionStep, Date)] {
+    private func removeExpiredObservingUser(observingUser: [String: ObservingData], time: Date) -> [String: ObservingData] {
         var observingUser = observingUser
         for item in observingUser {
-            if time.timeIntervalSince(item.value.2) > 1200 {
+            if time.timeIntervalSince(item.value.beforeSearchListDataRecord.time) > 1200 {
                 observingUser.removeValue(forKey: item.key)
             }
         }
         return observingUser
     }
     
-    private func addNewTotal(datatype: DataType) {
+    private func addOneToTotalNumber(for countType: CountType) {
         for i in 0...report.count-1 {
-            if report[i].dataType.isEqual(targetType: datatype) {
+            if report[i].countType == countType {
                 report[i].totalNum = report[i].totalNum + 1
             }
         }
@@ -240,13 +250,13 @@ class Report_ObserveDetailResultCountAndAmbiguousConditionType {
         return nil
     }
     
-    private func addNewResult(item: (datatype: DataType, action:ActionStep)) {
+    private func addNewResult(_ item: (CountType: CountType, action:ActionStep)) {
         for i in 0...report.count-1 {
-            if report[i].dataType.isEqual(targetType: item.datatype) {
+            if report[i].countType == item.CountType {
                 if item.action == .Kept {
-                    report[i].endWithKept = report[i].endWithKept + 1
-                } else if item.action == .OpenAppliedView {
-                    report[i].endWithApplied = report[i].endWithApplied + 1
+                    report[i].keptCount = report[i].keptCount + 1
+                } else if item.action == .Applied {
+                    report[i].appliecCount = report[i].appliecCount + 1
                 }
             }
         }

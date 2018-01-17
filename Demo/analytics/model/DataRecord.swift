@@ -85,4 +85,11 @@ class DataRecord {
     func hasSalaryCondition() -> Bool {
         return !salaryUnitCd!.isEmpty || !salaryRangeCd!.isEmpty
     }
+    
+    func searchConditionChanged(_ targetRecord: DataRecord) -> Bool {
+        if mArea == targetRecord.mArea && sArea == targetRecord.sArea && lJobTypeCd == targetRecord.lJobTypeCd && mJobTypeCd == targetRecord.mJobTypeCd && alongRailCd == targetRecord.alongRailCd && stationUnitCd == targetRecord.stationUnitCd && meritCd == targetRecord.meritCd && hireType == targetRecord.hireType && salaryUnitCd == targetRecord.salaryUnitCd && salaryRangeCd == targetRecord.salaryRangeCd {
+            return false
+        }
+        return true
+    }
 }

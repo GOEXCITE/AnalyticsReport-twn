@@ -9,10 +9,10 @@
 import Foundation
 
 struct ReportSearchResultListActivity {
-    var dataType = DataType()
+    var countType = CountType.NotAvaliable
     var totalNum = 0
-    var endWithKept = 0
-    var endWithApplied = 0
+    var keptCount = 0
+    var appliecCount = 0
 }
 
 class ReportConditionNumberAndConditionRankingOfSpecificType {
@@ -38,8 +38,8 @@ extension Util {
         for i in CountType.startIndex()...CountType.endIndex() {
             if let countType = CountType(rawValue: i){
                 var addNewUnit = ReportSearchResultListActivity()
-                addNewUnit.dataType.conditionType = AmbiguousConditionType.NotFull
-                addNewUnit.dataType.countType = countType
+//                addNewUnit.dataType.conditionType = AmbiguousConditionType.NotFull
+                addNewUnit.countType = countType
                 report.append(addNewUnit)
             }
         }
