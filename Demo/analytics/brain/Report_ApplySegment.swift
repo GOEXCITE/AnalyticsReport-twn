@@ -41,7 +41,7 @@ class Report_ApplySegment {
                 if row[12] != "WEB応募完了ページ表示" {
                     continue
                 }
-                if count > 100 {
+                if count > 20000 {
                     return
                 }
                 var item = ApplySegmentRecord()
@@ -114,6 +114,17 @@ class Report_ApplySegment {
                     target.merit[key] = value + 1
                 } else {
                     target.merit[key] = 1
+                }
+            }
+        }
+        if let alongRailCd = item.alongRailCd {
+            let types = Array(alongRailCd.split(separator: " "))
+            for aType in types {
+                let key = String(aType)
+                if let value = target.alongRailCd[key] {
+                    target.alongRailCd[key] = value + 1
+                } else {
+                    target.alongRailCd[key] = 1
                 }
             }
         }
