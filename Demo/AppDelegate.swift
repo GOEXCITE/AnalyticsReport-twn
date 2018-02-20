@@ -16,7 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         print("Starting")
-        Report_ObserveDetailResultCountAndAmbiguousConditionType.shared.observe()
+//        Report_ObserveDetailResultCountAndAmbiguousConditionType.shared.observe()
+        Report_ApplySegment().start()
         return true
     }
 }

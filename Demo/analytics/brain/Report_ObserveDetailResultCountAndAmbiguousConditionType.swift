@@ -21,6 +21,10 @@ class Report_ObserveDetailResultCountAndAmbiguousConditionType {
     var report = [ReportSearchResultListActivity]()
     var specificReports = [ReportConditionNumberAndConditionRankingOfSpecificType]()
     var countTypeAndConditionFlow = [ReportCountTypeConditionFlowstatistics]()
+    var countTotalAbove500 = 0
+    var countOfNoAreaAndAbove500 = 0
+    var countOfNoKodawariAndAbove500 = 0
+    var countOfNoJobTypeAndAbove500 = 0
     
     init() {
         data = Util.read()
@@ -62,8 +66,9 @@ class Report_ObserveDetailResultCountAndAmbiguousConditionType {
                         observingUsers[uuid]!.beforeSearchListDataRecord = item
                         observingUsers[uuid]!.countType = countType
                         observingUsers[uuid]!.isFromSearchList = true
-                        addOneToTotalNumber(for: countType)
-                        addCountTypeAndConditionFlow(countType: countType, dataRecord: item)
+                        addNoAreaAndAbove500(countType: countType, dataRecord: item)
+//                        addOneToTotalNumber(for: countType)
+//                        addCountTypeAndConditionFlow(countType: countType, dataRecord: item)
                     } else {
                         observingUsers[uuid]!.beforeSearchListDataRecord = item
                         observingUsers[uuid]!.countType = CountType.preferentialCountType(beforeType: existingUser.countType, afterType: countType)
@@ -75,8 +80,9 @@ class Report_ObserveDetailResultCountAndAmbiguousConditionType {
                     addData.countType = countType
                     addData.isFromSearchList = true
                     observingUsers[item.uuid!] = addData
-                    addOneToTotalNumber(for: countType)
-                    addCountTypeAndConditionFlow(countType: countType, dataRecord: item)
+                    addNoAreaAndAbove500(countType: countType, dataRecord: item)
+//                    addOneToTotalNumber(for: countType)
+//                    addCountTypeAndConditionFlow(countType: countType, dataRecord: item)
                 }
                 data.removeFirst()
             case .Applied:
@@ -141,6 +147,11 @@ class Report_ObserveDetailResultCountAndAmbiguousConditionType {
         print("条件あり＆＆検索結果数が500~の場合の対象バナー押下して遷移した数は: \(countTypeAbove500Number)")
         print("条件あり＆＆検索結果数が50以下の場合の対象バナー押下して遷移した数は: \(countTypeBellow50Number)")
         
+        print("------------Refine ReportCountTypeConditionFlowstatistics : get条件あり＆＆検索結果数が500~の場合のcount----------------")
+        print("countOfNoAreaAndAbove500: \(countOfNoAreaAndAbove500)")
+        print("countOfNoKodawariAndAbove500: \(countOfNoKodawariAndAbove500)")
+        print("countOfNoJobTypeAndAbove500: \(countOfNoJobTypeAndAbove500)")
+        
         print("observing finished!")
         //        Util.write(data: targetData, to: "twn_1204-1210_com.csv")
     }
@@ -186,6 +197,22 @@ class Report_ObserveDetailResultCountAndAmbiguousConditionType {
         addNewReport.countType = countType
         addNewReport.count = 1
         countTypeAndConditionFlow.append(addNewReport)
+    }
+    
+    private func addNoAreaAndAbove500(countType: CountType, dataRecord: DataRecord) {
+        if countType.rawValue < 8 {
+            return
+        }
+        countTotalAbove500 = countTotalAbove500 + 1
+        if dataRecord.noAreaCondition() {
+            countOfNoAreaAndAbove500 = countOfNoAreaAndAbove500 + 1
+        }
+        if dataRecord.noMeritCondition() {
+            countOfNoKodawariAndAbove500 = countOfNoKodawariAndAbove500 + 1
+        }
+        if dataRecord.noJobTypeCondition() {
+            countOfNoJobTypeAndAbove500 = countOfNoJobTypeAndAbove500 + 1
+        }
     }
     
     private func addNewSpecificReportResult(datatype: DataType, dataRecord: DataRecord) {

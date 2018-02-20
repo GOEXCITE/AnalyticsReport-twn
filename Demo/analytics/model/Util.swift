@@ -24,7 +24,7 @@ class Util {
     static func read() -> [DataRecord] {
         var allItems = [DataRecord]()
         do {
-            let url = URL(fileURLWithPath: FilePath)
+            let url = URL(fileURLWithPath: Resource_SearchConditionAndSearchResultReport)
             let csvStr = try String(contentsOf: url, encoding: String.Encoding.utf8)
             let csv = try! CSVReader(string: csvStr)
             

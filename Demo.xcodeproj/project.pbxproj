@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		A1808ABCF7E477E24F5A8850 /* Pods_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E828ECD481B7ACFB44F59070 /* Pods_Demo.framework */; };
+		CA035812203BE56B007CD915 /* UserSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA035811203BE56B007CD915 /* UserSegment.swift */; };
+		CA035814203BF0F6007CD915 /* Master.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA035813203BF0F6007CD915 /* Master.swift */; };
 		CA1523DA1FDA954300748E28 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1523D91FDA954300748E28 /* AppDelegate.swift */; };
 		CA1523DC1FDA954300748E28 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1523DB1FDA954300748E28 /* ViewController.swift */; };
 		CA1523DF1FDA954300748E28 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA1523DD1FDA954300748E28 /* Main.storyboard */; };
@@ -24,11 +26,14 @@
 		CAD93B7B1FE8DD4800714DEE /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD93B7A1FE8DD4800714DEE /* Constant.swift */; };
 		CADC6A6D1FE39087006649C5 /* DataRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC6A6C1FE39087006649C5 /* DataRecord.swift */; };
 		CADC6A731FE3A065006649C5 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC6A721FE3A065006649C5 /* Util.swift */; };
+		CAF22B0F20356FFA00584DFA /* Report_ApplySegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF22B0E20356FFA00584DFA /* Report_ApplySegment.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		71EE9EA63F71BE2E1C538FCC /* Pods-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Demo/Pods-Demo.debug.xcconfig"; sourceTree = "<group>"; };
 		796D443A82A390E280765A39 /* Pods-Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Demo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Demo/Pods-Demo.release.xcconfig"; sourceTree = "<group>"; };
+		CA035811203BE56B007CD915 /* UserSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSegment.swift; sourceTree = "<group>"; };
+		CA035813203BF0F6007CD915 /* Master.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Master.swift; sourceTree = "<group>"; };
 		CA1523D61FDA954300748E28 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA1523D91FDA954300748E28 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CA1523DB1FDA954300748E28 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -47,6 +52,7 @@
 		CAD93B7A1FE8DD4800714DEE /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		CADC6A6C1FE39087006649C5 /* DataRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataRecord.swift; sourceTree = "<group>"; };
 		CADC6A721FE3A065006649C5 /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
+		CAF22B0E20356FFA00584DFA /* Report_ApplySegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report_ApplySegment.swift; sourceTree = "<group>"; };
 		E828ECD481B7ACFB44F59070 /* Pods_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -147,6 +153,8 @@
 				CAD93B741FE8D61A00714DEE /* DataType.swift */,
 				CAD93B761FE8D72F00714DEE /* ReportSearchResultListActivity.swift */,
 				CAD93B781FE8D85100714DEE /* ActionStep.swift */,
+				CA035811203BE56B007CD915 /* UserSegment.swift */,
+				CA035813203BF0F6007CD915 /* Master.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -154,6 +162,7 @@
 		CADC6A6B1FE39050006649C5 /* brain */ = {
 			isa = PBXGroup;
 			children = (
+				CAF22B0E20356FFA00584DFA /* Report_ApplySegment.swift */,
 				CAD93B6E1FE8D52200714DEE /* Report_ObserveDetailResultCountAndAmbiguousConditionType.swift */,
 				CABB48121FE91DB000433F0D /* Report_SearchConditionWhenApplied.swift */,
 				CAD93B7A1FE8DD4800714DEE /* Constant.swift */,
@@ -295,13 +304,16 @@
 				CA1523DC1FDA954300748E28 /* ViewController.swift in Sources */,
 				CAD93B771FE8D72F00714DEE /* ReportSearchResultListActivity.swift in Sources */,
 				CADC6A6D1FE39087006649C5 /* DataRecord.swift in Sources */,
+				CA035814203BF0F6007CD915 /* Master.swift in Sources */,
 				CAD93B711FE8D57200714DEE /* ConditionType.swift in Sources */,
 				CAD93B6F1FE8D52200714DEE /* Report_ObserveDetailResultCountAndAmbiguousConditionType.swift in Sources */,
 				CAD93B791FE8D85100714DEE /* ActionStep.swift in Sources */,
 				CADC6A731FE3A065006649C5 /* Util.swift in Sources */,
+				CA035812203BE56B007CD915 /* UserSegment.swift in Sources */,
 				CA642B6E200DE306002C3EDA /* ConditionInflow.swift in Sources */,
 				CAD93B731FE8D5E000714DEE /* CountType.swift in Sources */,
 				CAD93B751FE8D61A00714DEE /* DataType.swift in Sources */,
+				CAF22B0F20356FFA00584DFA /* Report_ApplySegment.swift in Sources */,
 				CA1523DA1FDA954300748E28 /* AppDelegate.swift in Sources */,
 				CABB48131FE91DB000433F0D /* Report_SearchConditionWhenApplied.swift in Sources */,
 				CAD93B7B1FE8DD4800714DEE /* Constant.swift in Sources */,
