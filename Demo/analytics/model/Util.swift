@@ -12,6 +12,7 @@ import CSV
 class Util {
     
     private static let DateFormat = "yyyy/MM/dd HH:mm:ss"
+    private static let DateFormatZ = "yyyy/MM/dd HH:mm:ss Z"
     
     private static let pathProcessing = "/Users/01011776/workspace/Analytics-twn/data/processing/"
     
