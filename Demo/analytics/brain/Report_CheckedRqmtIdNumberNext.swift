@@ -9,61 +9,84 @@
 import Foundation
 import CSV
 
+// 追加パラ：uuidのappliedかどうかの情報,詳細閲覧数、キープしたかどうか、応募した原稿は一覧からかキープからか閲覧履歴からか
+// 別シート：検索条件数、一覧表示回数、sc length average、短期かどうか、応募したかどうか、何回応募したか、何回キープしたか
+
 class Report_CheckedRqmtIdNumberNext_RqmtId {
-    private let csvPath = "/Users/01011776/workspace/Analytics-twn/data/20180912/twn_20180827_output1.csv"
-    private let opCsvPath = "/Users/01011776/workspace/Analytics-twn/data/20180912/twn_20180827_output2.csv"
+    private static let folderName = "20180907"
+    private static let dateRange = "20180827"
+    private let csvPath = "/Users/01011776/workspace/Analytics-twn/data/" + folderName + "/twn_" + dateRange + "_output1.csv"
+    private let opCsvPath2 = "/Users/01011776/workspace/Analytics-twn/data/" + folderName + "/twn_" + dateRange + "_output2_oubo.csv"
+    private let opCsvPath3 = "/Users/01011776/workspace/Analytics-twn/data/" + folderName + "/twn_" + dateRange + "_output3_segment.csv"
     
-    fileprivate var csvWriter: CSVWriter
+    fileprivate var csvWriter2: CSVWriter
+    fileprivate var csvWriter3: CSVWriter
     
     var count = 0
     
     init() {
-        let outputFilePath = opCsvPath
-        let stream = OutputStream(toFileAtPath: outputFilePath, append: true)!
-        csvWriter = try! CSVWriter(stream: stream)
-        
-        try! csvWriter.write(row: ["uuid",
+        let outputFilePath2 = opCsvPath2
+        let stream2 = OutputStream(toFileAtPath: outputFilePath2, append: true)!
+        csvWriter2 = try! CSVWriter(stream: stream2)
+
+        try! csvWriter2.write(row: ["uuid",
                                    "rqmtId",
-                                   "checkedCount",
-                                   "applied"])
+                                   "detailCheckedCount",
+                                   "kept",
+                                   "rqmtIdApplied",
+                                   "ifRqmtIdApplied_detailPageFrom",
+                                   "uuidApplied"])
+        
+        let outputFilePath3 = opCsvPath3
+        let stream3 = OutputStream(toFileAtPath: outputFilePath3, append: true)!
+        csvWriter3 = try! CSVWriter(stream: stream3)
+        
+        try! csvWriter3.write(row: ["uuid",
+                                    "uuidApplied",
+                                    "scCount",
+                                    "scAverageLength",
+                                    "resultListPageCount",
+                                    "isTanki",
+                                    "appliedCount",
+                                    "keptCount"])
     }
     
     func start() {
         print(Date())
         read()
-        csvWriter.stream.close()
+        csvWriter2.stream.close()
+        csvWriter3.stream.close()
         print(Date())
     }
     
     fileprivate func read() {
         var nowUuid = ""
-        var tmp = [Model20180907Output]()
+        var itemsForSameUUID = [Model20180907Output]()
         do {
             let stream = InputStream(fileAtPath: csvPath)!
+//            let csv = try CSVReader(stream: stream)
             let csv = try CSVReader.init(stream: stream,
                                          hasHeaderRow: true,
                                          trimFields: false,
-                                         delimiter: " ",
+                                         delimiter: ",",
                                          whitespaces: CSVReader.defaultWhitespaces)
             while let row = csv.next() {
-                if row[4] == "sc" {
-                    continue
+                
+                if count > 200 {
+                    break
                 }
-//                if count > 100 {
-//                    break
-//                }
-//                count = count + 1
+                count = count + 1
                 if row[0] == nowUuid {
-                    var item = Model20180907Output()
-                    item.uuid = row[0]
-                    item.visitNumber = row[1]
-                    item.content = row[3]
-                    item.type = row[4]
-                    tmp.append(item)
+                    if row[5].isEmpty {
+                        print("type could not be empty!!")
+                        continue
+                    }
+                    itemsForSameUUID.append(createModelOutputItem(row)!)
                 } else {
-                    dealTmpItems(tmp)
+                    dealTmpItems(items: itemsForSameUUID)
                     nowUuid = row[0]
-                    tmp = [Model20180907Output]()
+                    itemsForSameUUID = [Model20180907Output]()
+                    itemsForSameUUID.append(createModelOutputItem(row)!)
                 }
             }
         } catch let err as NSError {
@@ -71,45 +94,156 @@ class Report_CheckedRqmtIdNumberNext_RqmtId {
         }
     }
     
-    private func dealTmpItems(_ items: [Model20180907Output]) {
-        var items = items
-        while !items.isEmpty {
-            
-            let first = items.first!
-            
-            var checked = 0
-            var applied = false
-            
-            var indexs = [Int]()
-            
-            for i in 0...items.count-1 {
-                if items[i].content != first.content {
-                    continue
-                }
-                if items[i].type == "detail" {
-                    checked += 1
-                    indexs.append(i)
-                } else if items[i].type == "apply" {
-                    applied = true
-                    indexs.append(i)
-                }
-            }
-            
-            writeData(uuid: first.uuid, rqmtId: first.content, checkedCount: checked, applied: applied)
-            
-            while !indexs.isEmpty {
-                items.remove(at: indexs.last!)
-                _ = indexs.removeLast()
-            }
+    private func createModelOutputItem(_ row: [String]) -> Model20180907Output? {
+        if let type = ItemType(rawValue: row[5]) {
+            var item = Model20180907Output(type)
+            item.uuid = row[0]
+            item.visitNumber = row[1]
+            item.content = row[3]
+            item.location = row[4]
+            return item
         }
-
+        return nil
     }
     
-    fileprivate func writeData(uuid: String, rqmtId: String, checkedCount: Int, applied: Bool) {
-        csvWriter.beginNewRow()
-        try! csvWriter.write(field: uuid)
-        try! csvWriter.write(field: rqmtId)
-        try! csvWriter.write(field: "\(checkedCount)")
-        try! csvWriter.write(field: "\(applied)")
+    private func dealTmpItems(items: [Model20180907Output]) {
+        if items.isEmpty {
+            return
+        }
+        var items = items
+        let uuid = items.first!.uuid
+        var uuidApplied = false
+        var uuidAppliedCount = 0
+        var uuidKeptCount = 0
+        
+        var scs = [Model20180907Output]()
+        
+        while !items.isEmpty {
+            
+            guard let tIndex = items.index(where: { (aItem) -> Bool in
+                return !aItem.content.isEmpty
+            }) else {
+                break
+            }
+            
+            let rqmtid = items[tIndex].content
+            
+            var rqmtIdDetailCheckedCount = 0
+            var rqmtIdApplied = false
+            var rqmtIdKept = false
+            var rqmtIdFromPage = ""
+            var rqmtIdFromPageIndex = -1
+            
+            var indexsToBeRemoved = [Int]()
+            
+            for i in 0...items.count-1 {
+                
+                let tItem = items[i]
+                
+                switch tItem.type {
+                case .sc:
+                    scs.append(tItem)
+                    indexsToBeRemoved.append(i)
+                case .detail:
+                    if tItem.content == rqmtid {
+                        rqmtIdDetailCheckedCount += 1
+                        indexsToBeRemoved.append(i)
+                    }
+                case .apply:
+                    if tItem.content == rqmtid {
+                        rqmtIdApplied = true
+                        uuidApplied = true
+                        uuidAppliedCount += 1
+                        indexsToBeRemoved.append(i)
+                        if rqmtIdFromPageIndex > 0 {
+                            indexsToBeRemoved.append(rqmtIdFromPageIndex)
+                        }
+                    }
+                case .keep:
+                    if tItem.content == rqmtid {
+                        rqmtIdKept = true
+                        uuidKeptCount += 1
+                        indexsToBeRemoved.append(i)
+                    }
+                case .keeplist, .historylist:
+                    rqmtIdFromPage = tItem.type.rawValue
+                    rqmtIdFromPageIndex = i
+                }
+            }
+            
+            writeUserRqmtIdData(uuid: uuid,
+                                rqmtId: rqmtid,
+                                detailCheckedCount: rqmtIdDetailCheckedCount,
+                                kept: rqmtIdKept,
+                                rqmtIdApplied: rqmtIdApplied,
+                                ifRqmtIdApplied_detailPageFrom: rqmtIdFromPage,
+                                uuidApplied: uuidApplied)
+            
+            while !indexsToBeRemoved.isEmpty {
+                items.remove(at: indexsToBeRemoved.removeLast())
+            }
+        }
+        
+        if scs.isEmpty {
+            writeSegmentData(uuid: uuid,
+                             uuidApplied: uuidApplied,
+                             scCount: 0,
+                             scAverageLength: 0,
+                             resultListPageCount: 0,
+                             isTanki: false,
+                             appliedCount: uuidAppliedCount,
+                             keptCount: uuidKeptCount)
+        } else {
+            
+            var allLength = 0
+            // 短期：0052
+            var isTanki = false
+            
+            var uniqueSCStrings = Set<String>()
+            for item in scs {
+                uniqueSCStrings.insert(item.content)
+                allLength += item.content.characters.count
+                isTanki = item.content.contains("0052") ? true : isTanki
+            }
+            
+            writeSegmentData(uuid: uuid,
+                             uuidApplied: uuidApplied,
+                             scCount: uniqueSCStrings.count,
+                             scAverageLength: allLength / scs.count,
+                             resultListPageCount: scs.count,
+                             isTanki: isTanki,
+                             appliedCount: uuidAppliedCount,
+                             keptCount: uuidKeptCount)
+        }
+    }
+        
+    
+    fileprivate func writeUserRqmtIdData(uuid: String,
+                                         rqmtId: String,
+                                         detailCheckedCount: Int,
+                                         kept:Bool,
+                                         rqmtIdApplied: Bool,
+                                         ifRqmtIdApplied_detailPageFrom: String,
+                                         uuidApplied:Bool) {
+        csvWriter2.beginNewRow()
+        try! csvWriter2.write(field: uuid)
+        try! csvWriter2.write(field: rqmtId)
+        try! csvWriter2.write(field: "\(detailCheckedCount)")
+        try! csvWriter2.write(field: "\(kept)")
+        try! csvWriter2.write(field: "\(rqmtIdApplied)")
+        try! csvWriter2.write(field: ifRqmtIdApplied_detailPageFrom)
+        try! csvWriter2.write(field: "\(uuidApplied)")
+    }
+    
+    fileprivate func writeSegmentData(uuid: String, uuidApplied: Bool, scCount: Int, scAverageLength: Int, resultListPageCount: Int, isTanki: Bool, appliedCount: Int, keptCount: Int) {
+        csvWriter3.beginNewRow()
+        try! csvWriter3.write(field: uuid)
+        try! csvWriter3.write(field: "\(uuidApplied)")
+        try! csvWriter3.write(field: "\(scCount)")
+        try! csvWriter3.write(field: "\(scAverageLength)")
+        try! csvWriter3.write(field: "\(resultListPageCount)")
+        try! csvWriter3.write(field: "\(isTanki)")
+        try! csvWriter3.write(field: "\(appliedCount)")
+        try! csvWriter3.write(field: "\(keptCount)")
     }
 }

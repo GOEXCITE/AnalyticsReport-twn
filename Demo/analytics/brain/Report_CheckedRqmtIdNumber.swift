@@ -12,10 +12,15 @@ import CSV
 // time sort
 // remove tmp data
 
+// 追加パラ：sc length
+enum ItemType: String {
+    case sc, detail, apply, keep, keeplist, historylist
+}
 class Report_CheckedRqmtIdNumber {
-    
-    private let csvPath = "/Users/01011776/workspace/Analytics-twn/data/20180912/twn_20180827-0902_segment.csv"
-    private let opCsvPath = "/Users/01011776/workspace/Analytics-twn/data/20180912/twn_20180827-0902_output1.csv"
+    private static let dateRange = "20180828-28"
+    private static let outputFolder = "20180828_ana"
+    private let csvPath = "/Users/01011776/workspace/Analytics-twn/data/_rawdataset/f1/twn_" + dateRange + "_raw.csv"
+    private let opCsvPath = "/Users/01011776/workspace/Analytics-twn/data/" + outputFolder + "/twn_" + dateRange + "_output1.csv"
     
     fileprivate var csvWriter: CSVWriter
     
@@ -26,10 +31,12 @@ class Report_CheckedRqmtIdNumber {
         let stream = OutputStream(toFileAtPath: outputFilePath, append: true)!
         csvWriter = try! CSVWriter(stream: stream)
         
+        
         try! csvWriter.write(row: ["uuid",
                                    "visitNumber",
                                    "time",
                                    "content",
+                                   "location",
                                    "type"])
     }
     
@@ -44,6 +51,12 @@ class Report_CheckedRqmtIdNumber {
         do {
             let stream = InputStream(fileAtPath: csvPath)!
             let csv = try CSVReader(stream: stream)
+//            let csv = try CSVReader(stream: stream,
+//                                    hasHeaderRow: true,
+//                                    trimFields: false,
+//                                    delimiter: ",",
+//                                    whitespaces: CSVReader.defaultWhitespaces)
+
             while let row = csv.next() {
                 if row.count < 23 {
                     print("invilid row!!!")
@@ -55,7 +68,12 @@ class Report_CheckedRqmtIdNumber {
                 if row[1].isEmpty {
                     continue
                 }
-                let checkPage = row[2] == "求人情報一覧画面起動" || row[2] == "求人情報詳細画面起動" || row[2] == "WEB応募完了ページ表示"
+                let checkPage = row[2] == "求人情報一覧画面起動" ||
+                    row[2] == "求人情報詳細画面起動" ||
+                    row[2] == "WEB応募完了ページ表示" ||
+                    row[2] == "キープリスト画面起動" ||
+                    row[2] == "閲覧履歴画面起動" ||
+                    row[22] == "1"
 
                 if !checkPage {
                     continue
@@ -117,41 +135,70 @@ class Report_CheckedRqmtIdNumber {
                 item.gpsRange!.isEmpty {
                 return
             }
-            addNewSCtoMidFiles(item)
+            addNewSCToMidFiles(item)
         } else if item.page == "求人情報詳細画面起動" && !item.rqmtId!.isEmpty {
-            addNewDetailtoMidFiles(item)
+            addNewDetailToMidFiles(item)
         } else if item.page == "WEB応募完了ページ表示" && !item.rqmtId!.isEmpty {
-            addNewApplytoMidFiles(item)
+            addNewApplyToMidFiles(item)
+        } else if item.page == "キープリスト画面起動" {
+            addNewKeepListToMidFiles(item)
+        } else if item.page == "閲覧履歴画面起動" {
+            addNewHistoryListToMidFiles(item)
+        } else if item.keepEvent == "1" {
+            addNewKeepToMidFiles(item)
         }
     }
     
-    private func addNewSCtoMidFiles(_ item: Model20180907) {
-        var output = Model20180907Output()
+    private func addNewSCToMidFiles(_ item: Model20180907) {
+        var output = Model20180907Output(ItemType.sc)
         output.uuid = item.uuid
         output.visitNumber = item.visitNumber ?? ""
         output.time = "\(item.time!)"
         output.content = coverSearchConditionToString(item: item)
-        output.type = "sc"
         writeData(item: output)
     }
     
-    private func addNewDetailtoMidFiles(_ item: Model20180907) {
-        var output = Model20180907Output()
+    private func addNewDetailToMidFiles(_ item: Model20180907) {
+        var output = Model20180907Output(ItemType.detail)
         output.uuid = item.uuid
         output.visitNumber = item.visitNumber ?? ""
         output.time = "\(item.time!)"
         output.content = item.rqmtId!
-        output.type = "detail"
         writeData(item: output)
     }
     
-    private func addNewApplytoMidFiles(_ item: Model20180907) {
-        var output = Model20180907Output()
+    private func addNewApplyToMidFiles(_ item: Model20180907) {
+        var output = Model20180907Output(ItemType.apply)
         output.uuid = item.uuid
         output.visitNumber = item.visitNumber ?? ""
         output.time = "\(item.time!)"
         output.content = item.rqmtId!
-        output.type = "apply"
+        writeData(item: output)
+    }
+    
+    private func addNewKeepListToMidFiles(_ item: Model20180907) {
+        var output = Model20180907Output(ItemType.keeplist)
+        output.uuid = item.uuid
+        output.visitNumber = item.visitNumber ?? ""
+        output.time = "\(item.time!)"
+        writeData(item: output)
+    }
+    
+    private func addNewHistoryListToMidFiles(_ item: Model20180907) {
+        var output = Model20180907Output(ItemType.historylist)
+        output.uuid = item.uuid
+        output.visitNumber = item.visitNumber ?? ""
+        output.time = "\(item.time!)"
+        writeData(item: output)
+    }
+    
+    private func addNewKeepToMidFiles(_ item: Model20180907) {
+        var output = Model20180907Output(ItemType.keep)
+        output.uuid = item.uuid
+        output.visitNumber = item.visitNumber ?? ""
+        output.time = "\(item.time!)"
+        output.content = item.rqmtId!
+        output.location = item.eventPage!
         writeData(item: output)
     }
     
@@ -206,6 +253,7 @@ class Report_CheckedRqmtIdNumber {
         try! csvWriter.write(field: item.visitNumber)
         try! csvWriter.write(field: item.time)
         try! csvWriter.write(field: item.content)
-        try! csvWriter.write(field: item.type)
+        try! csvWriter.write(field: item.location)
+        try! csvWriter.write(field: item.type.rawValue)
     }
 }

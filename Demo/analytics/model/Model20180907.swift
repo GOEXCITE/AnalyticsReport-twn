@@ -46,5 +46,10 @@ struct Model20180907Output {
     var visitNumber: String = ""
     var time: String = ""
     var content: String = ""
-    var type: String = ""
+    var location: String = ""
+    let type: ItemType
+    
+    init(_ iType: ItemType) {
+        type = iType
+    }
 }
