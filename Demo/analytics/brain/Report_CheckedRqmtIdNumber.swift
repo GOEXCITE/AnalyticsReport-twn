@@ -14,11 +14,11 @@ import CSV
 
 // 追加パラ：sc length
 enum ItemType: String {
-    case sc, detail, apply, keep, keeplist, historylist
+    case sc, detail, apply, keep, keeplist, historylist, exceptionPreDetailPage
 }
 class Report_CheckedRqmtIdNumber {
-    private static let dateRange = "20180828-28"
-    private static let outputFolder = "20180828_ana"
+    private static let dateRange = "20180827-0902"
+    private static let outputFolder = "20180827-0902_ana"
     private let csvPath = "/Users/01011776/workspace/Analytics-twn/data/_rawdataset/f1/twn_" + dateRange + "_raw.csv"
     private let opCsvPath = "/Users/01011776/workspace/Analytics-twn/data/" + outputFolder + "/twn_" + dateRange + "_output1.csv"
     
@@ -73,6 +73,9 @@ class Report_CheckedRqmtIdNumber {
                     row[2] == "WEB応募完了ページ表示" ||
                     row[2] == "キープリスト画面起動" ||
                     row[2] == "閲覧履歴画面起動" ||
+                    row[2] == "写真画面起動" ||
+                    row[2] == "地図詳細画面起動" ||
+                    row[2] == "WEB応募開始ページ表示" ||
                     row[22] == "1"
 
                 if !checkPage {
@@ -144,7 +147,17 @@ class Report_CheckedRqmtIdNumber {
             addNewKeepListToMidFiles(item)
         } else if item.page == "閲覧履歴画面起動" {
             addNewHistoryListToMidFiles(item)
-        } else if item.keepEvent == "1" {
+        }
+        else if item.page == "写真画面起動" {
+            addNewExceptionPreDetailPageToMidFiles(item)
+        }
+        else if item.page == "地図詳細画面起動" {
+            addNewExceptionPreDetailPageToMidFiles(item)
+        }
+        else if item.page == "WEB応募開始ページ表示" {
+            addNewExceptionPreDetailPageToMidFiles(item)
+        }
+        else if item.keepEvent == "1" {
             addNewKeepToMidFiles(item)
         }
     }
@@ -186,6 +199,14 @@ class Report_CheckedRqmtIdNumber {
     
     private func addNewHistoryListToMidFiles(_ item: Model20180907) {
         var output = Model20180907Output(ItemType.historylist)
+        output.uuid = item.uuid
+        output.visitNumber = item.visitNumber ?? ""
+        output.time = "\(item.time!)"
+        writeData(item: output)
+    }
+    
+    private func addNewExceptionPreDetailPageToMidFiles(_ item: Model20180907) {
+        var output = Model20180907Output(ItemType.exceptionPreDetailPage)
         output.uuid = item.uuid
         output.visitNumber = item.visitNumber ?? ""
         output.time = "\(item.time!)"

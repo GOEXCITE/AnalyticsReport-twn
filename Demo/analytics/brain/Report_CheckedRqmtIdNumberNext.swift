@@ -12,9 +12,9 @@ import CSV
 // 追加パラ：uuidのappliedかどうかの情報,詳細閲覧数、キープしたかどうか、応募した原稿は一覧からかキープからか閲覧履歴からか
 // 別シート：検索条件数、一覧表示回数、sc length average、短期かどうか、応募したかどうか、何回応募したか、何回キープしたか
 
-class Report_CheckedRqmtIdNumberNext_RqmtId {
-    private static let folderName = "20180907"
-    private static let dateRange = "20180827"
+class Report_CheckedRqmtIdAndSegment {
+    private static let folderName = "20180827-0902_ana"
+    private static let dateRange = "20180827-0902"
     private let csvPath = "/Users/01011776/workspace/Analytics-twn/data/" + folderName + "/twn_" + dateRange + "_output1.csv"
     private let opCsvPath2 = "/Users/01011776/workspace/Analytics-twn/data/" + folderName + "/twn_" + dateRange + "_output2_oubo.csv"
     private let opCsvPath3 = "/Users/01011776/workspace/Analytics-twn/data/" + folderName + "/twn_" + dateRange + "_output3_segment.csv"
@@ -72,10 +72,6 @@ class Report_CheckedRqmtIdNumberNext_RqmtId {
                                          whitespaces: CSVReader.defaultWhitespaces)
             while let row = csv.next() {
                 
-                if count > 200 {
-                    break
-                }
-                count = count + 1
                 if row[0] == nowUuid {
                     if row[5].isEmpty {
                         print("type could not be empty!!")
@@ -83,7 +79,13 @@ class Report_CheckedRqmtIdNumberNext_RqmtId {
                     }
                     itemsForSameUUID.append(createModelOutputItem(row)!)
                 } else {
-                    dealTmpItems(items: itemsForSameUUID)
+                    dealTmpItems(itemsForSameUUID)
+                    
+//                    if count > 200 {
+//                        break
+//                    }
+//                    count = count + 1
+                    
                     nowUuid = row[0]
                     itemsForSameUUID = [Model20180907Output]()
                     itemsForSameUUID.append(createModelOutputItem(row)!)
@@ -106,22 +108,23 @@ class Report_CheckedRqmtIdNumberNext_RqmtId {
         return nil
     }
     
-    private func dealTmpItems(items: [Model20180907Output]) {
-        if items.isEmpty {
+    private func dealTmpItems(_ tItems: [Model20180907Output]) {
+        if tItems.isEmpty {
             return
         }
-        var items = items
-        let uuid = items.first!.uuid
+
+        let uuid = tItems.first!.uuid
         var uuidApplied = false
         var uuidAppliedCount = 0
         var uuidKeptCount = 0
         
-        var scs = [Model20180907Output]()
+        var items = tItems
         
         while !items.isEmpty {
             
+            // index of "detail", "apply", "keep"
             guard let tIndex = items.index(where: { (aItem) -> Bool in
-                return !aItem.content.isEmpty
+                return aItem.type != .sc && !aItem.content.isEmpty
             }) else {
                 break
             }
@@ -132,42 +135,50 @@ class Report_CheckedRqmtIdNumberNext_RqmtId {
             var rqmtIdApplied = false
             var rqmtIdKept = false
             var rqmtIdFromPage = ""
-            var rqmtIdFromPageIndex = -1
-            
-            var indexsToBeRemoved = [Int]()
+            var nextItems = [Model20180907Output]()
+            var hasExceptionPreDetailPage = false
             
             for i in 0...items.count-1 {
                 
                 let tItem = items[i]
                 
                 switch tItem.type {
-                case .sc:
-                    scs.append(tItem)
-                    indexsToBeRemoved.append(i)
+                case .exceptionPreDetailPage:
+                    hasExceptionPreDetailPage = true
                 case .detail:
                     if tItem.content == rqmtid {
-                        rqmtIdDetailCheckedCount += 1
-                        indexsToBeRemoved.append(i)
+                        if !hasExceptionPreDetailPage {
+                            rqmtIdDetailCheckedCount += 1
+                        }
+                        hasExceptionPreDetailPage = false
+                    } else {
+                        nextItems.append(tItem)
                     }
                 case .apply:
+                    hasExceptionPreDetailPage = false
                     if tItem.content == rqmtid {
                         rqmtIdApplied = true
                         uuidApplied = true
                         uuidAppliedCount += 1
-                        indexsToBeRemoved.append(i)
-                        if rqmtIdFromPageIndex > 0 {
-                            indexsToBeRemoved.append(rqmtIdFromPageIndex)
-                        }
+                    } else {
+                        nextItems.append(tItem)
                     }
                 case .keep:
+                    hasExceptionPreDetailPage = false
                     if tItem.content == rqmtid {
                         rqmtIdKept = true
                         uuidKeptCount += 1
-                        indexsToBeRemoved.append(i)
+                    } else {
+                        nextItems.append(tItem)
                     }
                 case .keeplist, .historylist:
+                    hasExceptionPreDetailPage = false
                     rqmtIdFromPage = tItem.type.rawValue
-                    rqmtIdFromPageIndex = i
+                    nextItems.append(tItem)
+                case .sc:
+                    hasExceptionPreDetailPage = false
+                    rqmtIdFromPage = "sc"
+                    nextItems.append(tItem)
                 }
             }
             
@@ -179,8 +190,14 @@ class Report_CheckedRqmtIdNumberNext_RqmtId {
                                 ifRqmtIdApplied_detailPageFrom: rqmtIdFromPage,
                                 uuidApplied: uuidApplied)
             
-            while !indexsToBeRemoved.isEmpty {
-                items.remove(at: indexsToBeRemoved.removeLast())
+            items = nextItems
+        }
+        
+        var scs = [Model20180907Output]()
+//        var restItems = [Model20180907Output]()
+        for item in items {
+            if item.type == .sc {
+                scs.append(item)
             }
         }
         
