@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         print("Starting")
 //        Report_ObserveDetailResultCountAndAmbiguousConditionType.shared.observe()
-        Report_CheckedRqmtIdNumber().start()
+        Report_UUIDApplyActivityAna().start()
         return true
     }
 }
